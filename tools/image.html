@@ -6,7 +6,6 @@
 <link rel="import" href="../../paper-input/paper-input.html">
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
-<link rel="import" href="../../neon-animation/web-animations.html">
 <link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../paper-listbox/paper-listbox.html">
@@ -70,13 +69,13 @@
 
 			connectedCallback() {
 				super.connectedCallback();
-		
+
 				if (!this._handler) {
 					this._handler = function (event) {
 						var target = event.composedPath()[0];
 						if (!this.target.contains(target)) return;
 						event.preventDefault();
-		
+
 						if (target.tagName === 'IMG') {
 							this._setSelectedImage(target);
 							var selection = this.selectionRoot.getSelection();
@@ -90,15 +89,15 @@
 						}
 					}.bind(this);
 				}
-		
+
 				document.addEventListener('click', this._handler);
 			}
-		
+
 			disconnectedCallback() {
 				super.disconnectedCallback();
 				document.removeEventListener('click', this._handler);
 			}
-		
+
 			static get properties() {
 				return {
 					imageFloat: {
@@ -118,15 +117,15 @@
 					}
 				};
 			}
-		
+
 			execCommand(clickTarget) {
 				if (!(clickTarget instanceof HTMLElement)) clickTarget = null;
 				if (this.disabled || !this.range0) return;
 				var imageUrl = this.imageUrl, imageFloat = this.imageFloat;
-		
+
 				if (clickTarget && this.$.updateInsert === clickTarget || this.$.updateInsert.root.contains(clickTarget)) {
 					this.$.dropdown.close();
-		
+
 					setTimeout(
 						function () {
 							if (this.selectedImage) {
@@ -134,7 +133,7 @@
 								this.selectedImage.style.float = imageFloat;
 							} else {
 								document.execCommand('insertImage', false, imageUrl);
-		
+
 								setTimeout(
 									function () {
 										if (this.selectedImage) this.selectedImage.style.float = imageFloat;
@@ -150,7 +149,7 @@
 						this.selectedImage.parentNode.removeChild(this.selectedImage);
 						this._setSelectedImage(null);
 					}
-		
+
 					this.$.dropdown.close();
 				} else if (clickTarget && this.$.close === clickTarget || this.$.close.root.contains(clickTarget)) {
 					this.$.dropdown.close();
@@ -162,9 +161,9 @@
 						this.imageUrl = '';
 						this.imageFloat = 'none';
 					}
-		
+
 					this.$.dropdown.open();
-		
+
 					setTimeout(
 						function () {
 							this.$.url.focus();
@@ -173,11 +172,11 @@
 					);
 				}
 			}
-		
+
 			ready() {
 				super.ready();
 				this._setUsesDialog(true);
-		
+
 				this.resources = {
 					'br': {
 						'Image': 'Imagem',
@@ -204,32 +203,32 @@
 						'right': 'droite'
 					}
 				};
-		
+
 				this.allowedTagNames = ['img'];
 			}
-			
+
 			_computeActive(range0, selectionRoot, canRedo, canUndo, value, commonAncestorPath, command) {
 				return !!this.selectedImage;
 			}
-		
+
 			_computeDisabled(range0, selectionRoot, canRedo, canUndo, value, commonAncestorPath, command) {
 				if (this.selectedImage || this.range0) return false;
 				return true;
 			}
-		
+
 			_imageFloatChanged() {
 				if (['none', 'left', 'right'].indexOf(this.imageFloat) === -1) {
 					this.imageFloat = 'none';
 					return;
 				}
 			}
-		
+
 			_paperDropdownClose(event) {
 				var target = event.composedPath()[0];
 				if (target !== this.$.dropdown) return;
 				this.imageUrl = '';
 				this.imageFloat = 'none';
-		
+
 				this.dispatchEvent(
 					new Event(
 						'restore-selection',
@@ -240,7 +239,7 @@
 					)
 				);
 			}
-			
+
 			_selectedImageChanged(event) {
 				if (this.selectedImage) {
 					this.imageUrl = this.selectedImage.src;
@@ -248,7 +247,7 @@
 					this.imageUrl = '';
 				}
 			}
-		
+
 			_stopPropagation(event) {
 				event.stopPropagation();
 			}

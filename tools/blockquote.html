@@ -2,7 +2,6 @@
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
-<link rel="import" href="../../neon-animation/web-animations.html">
 <link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="../wysiwyg-tool.html">
@@ -34,7 +33,7 @@
 
 			ready() {
 				super.ready();
-		
+
 				this.resources = {
 					'br': {
 						'Blockquote': 'Citação'
@@ -46,13 +45,13 @@
 						'Blockquote': 'Citation'
 					}
 				};
-		
+
 				this.allowedTagNames = ['blockquote'];
 			}
-		
+
 			execCommand(clickTarget) {
 				if (this.disabled || !this.range0) return;
-		
+
 				if (!this.active) {
 					var rangeText = this.range0.toString();
 					var blockquote = document.createElement('blockquote');
@@ -61,7 +60,7 @@
 					if (!rangeText) blockquote.innerHTML = '<br>';
 				} else  {
 					var path = this.commonAncestorPath;
-		
+
 					if (path) {
 						for (var i = 0; i < path.length - 1; i += 1) {
 							if (path[i].tagName === 'BLOCKQUOTE' && path[i].hasAttribute('blockquote')) {
@@ -71,19 +70,19 @@
 					}
 				}
 			}
-			
+
 			_computeActive(range0, selectionRoot, canRedo, canUndo, value, commonAncestorPath, command) {
 				var path = this.commonAncestorPath;
-		
+
 				if (path) {
 					for (var i = 0; i < path.length; i += 1) {
 						if (path[i].tagName === 'BLOCKQUOTE' && path[i].hasAttribute('blockquote')) return true;
 					}
 				}
-		
+
 				return false;
 			}
-		
+
 			_computeDisabled(range0, selectionRoot, canRedo, canUndo, value, commonAncestorPath, command) {
 				return !this.range0
 			}

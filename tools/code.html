@@ -3,7 +3,6 @@
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
-<link rel="import" href="../../neon-animation/web-animations.html">
 <link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../wysiwyg-tool.html">
 <link rel="import" href="../wysiwyg-localize.html">
@@ -34,7 +33,7 @@
 
 			execCommand(clickTarget) {
 				if (this.disabled || !this.range0) return;
-		
+
 				if (!this.active) {
 					var rangeText = this.range0.toString();
 					var code = document.createElement('code');
@@ -42,7 +41,7 @@
 					if (!rangeText) code.innerHTML = '<br>';
 				} else  {
 					var path = this.commonAncestorPath;
-		
+
 					if (path) {
 						for (var i = 0; i < path.length - 1; i += 1) {
 							if (path[i].tagName === 'CODE') {
@@ -52,26 +51,26 @@
 					}
 				}
 			}
-			
+
 			_computeActive(range0, selectionRoot, canRedo, canUndo, value, commonAncestorPath, command) {
 				var path = this.commonAncestorPath;
-		
+
 				if (path) {
 					for (var i = 0; i < path.length; i += 1) {
 						if (path[i].tagName === 'CODE') return true;
 					}
 				}
-		
+
 				return false;
 			}
-		
+
 			_computeDisabled(range0, selectionRoot, canRedo, canUndo, value, commonAncestorPath, command) {
 				return !this.range0
 			}
-		
+
 			ready() {
 				super.ready();
-		
+
 				this.resources = {
 					'br': {
 						'Code': 'Código'
@@ -83,7 +82,7 @@
 						'Code': 'Code'
 					}
 				};
-		
+
 				this.allowedTagNames = ['code', 'br'];
 			}
 		}

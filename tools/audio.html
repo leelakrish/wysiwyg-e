@@ -5,7 +5,6 @@
 <link rel="import" href="../../paper-input/paper-input.html">
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
-<link rel="import" href="../../neon-animation/web-animations.html">
 <link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../paper-item/paper-item.html">
 <link rel="import" href="../../paper-menu-button/paper-menu-button.html">
@@ -134,7 +133,7 @@
 					);
 				}
 			}
-			
+
 			_computeActive(range0, selectionRoot, canRedo, canUndo, value, commonAncestorPath, command) {
 				return !!this.selectedAudio;
 			}
@@ -181,7 +180,7 @@
 					)
 				);
 			}
-			
+
 			_selectedAudioChanged(event) {
 				if (this.selectedAudio) {
 					this.audioUrl = this.selectedAudio.src;

@@ -3,7 +3,6 @@
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="../../iron-a11y-keys/iron-a11y-keys.html">
-<link rel="import" href="../../neon-animation/web-animations.html">
 <link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../font-roboto/roboto.html">
 <link rel="import" href="../../paper-item/paper-item.html">
@@ -133,12 +132,12 @@
 					}
 				};
 			}
-		
+
 			ready() {
 				super.ready();
 				this._setUsesDialog(true);
 				this._setCommand('formatBlock');
-		
+
 				this.resources = {
 					'br': {
 						'Headings': 'Títulos',
@@ -157,11 +156,11 @@
 					}
 				};
 			}
-		
+
 			execCommand(clickTarget) {
 				if (this.disabled || !this.range0) return false
 				var action;
-		
+
 				if (this.$.p === clickTarget || this.$.p.root.contains(clickTarget)) {
 					action = function () {
 						this._heading(0);
@@ -191,7 +190,7 @@
 						this._heading(6);
 					}.bind(this);
 				}
-		
+
 				if (action) {
 					this.dispatchEvent(
 						new Event(
@@ -202,65 +201,65 @@
 							}
 						)
 					);
-		
+
 					setTimeout(
 						action,
 						100
 					);
 				}
 			}
-		
+
 			_computeActive(range0, selectionRoot, canRedo, canUndo, value, commonAncestorPath, command) {
 				if (this.range0 && this.commonAncestorPath) {
 					for (var i = 0; i < this.commonAncestorPath.length; i += 1) {
 						var h1 = this.commonAncestorPath[i].tagName === 'H1';
-		
+
 						if (h1) {
 							this.$.h1.setAttribute('active', '');
 						} else {
 							this.$.h1.removeAttribute('active');
 						}
-		
+
 						var h2 = this.commonAncestorPath[i].tagName === 'H2';
-		
+
 						if (h2) {
 							this.$.h2.setAttribute('active', '');
 						} else {
 							this.$.h2.removeAttribute('active');
 						}
-		
+
 						var h3 = this.commonAncestorPath[i].tagName === 'H3';
-		
+
 						if (h3) {
 							this.$.h3.setAttribute('active', '');
 						} else {
 							this.$.h3.removeAttribute('active');
 						}
-		
+
 						var h4 = this.commonAncestorPath[i].tagName === 'H4';
-		
+
 						if (h4) {
 							this.$.h4.setAttribute('active', '');
 						} else {
 							this.$.h4.removeAttribute('active');
 						}
-		
+
 						var h5 = this.commonAncestorPath[i].tagName === 'H5';
-		
+
 						if (h5) {
 							this.$.h5.setAttribute('active', '');
 						} else {
 							this.$.h5.removeAttribute('active');
 						}
-		
+
 						var h6 = this.commonAncestorPath[i].tagName === 'H6';
-		
+
 						if (h6) {
 							this.$.h6.setAttribute('active', '');
 						} else {
 							this.$.h6.removeAttribute('active');
 						}
-		
+
 						if (h1 || h2 || h3 || h4 || h5 || h6) {
 							this.$.p.removeAttribute('active');
 							return true;
@@ -269,10 +268,10 @@
 						}
 					}
 				}
-		
+
 				return false;
 			}
-		
+
 			_computeAllowedTagNames() {
 				var tagNames = ['p'];
 				if (this.h1) tagNames.push('h1');
@@ -283,46 +282,46 @@
 				if (this.h6) tagNames.push('h6');
 				return tagNames;
 			}
-		
+
 			_h1() {
 				console.log('h1');
 				this._heading(1);
 			}
-		
+
 			_h2() {
 				this._heading(2);
 			}
-		
+
 			_h3() {
 				this._heading(3);
 			}
-		
+
 			_h4() {
 				this._heading(4);
 			}
-		
+
 			_h5() {
 				this._heading(5);
 			}
-		
+
 			_h6() {
 				this._heading(6);
 			}
-		
+
 			_heading(level) {
 				if (this.disabled || !this.range0 || level !== parseInt(level) || level < 0 || level > 6) return false;
-		
+
 				var heading;
-		
+
 				for (var i = 0; i < this.commonAncestorPath.length; i += 1) {
 					if (['H' + level].indexOf(this.commonAncestorPath[i].tagName) >= 0) {
 						heading = true;
 						break;
 					}
 				}
-		
+
 				this.$.dropdown.close();
-		
+
 				setTimeout(
 					function () {
 						if (heading || level === 0) {
@@ -334,15 +333,15 @@
 					10
 				);
 			}
-		
+
 			_p() {
 				this._heading(0);
 			}
-		
+
 			_paperDropdownClose(event) {
 				var target = event.composedPath()[0];
 				if (target !== this.$.dropdown) return;
-		
+
 				this.dispatchEvent(
 					new Event(
 						'restore-selection',
